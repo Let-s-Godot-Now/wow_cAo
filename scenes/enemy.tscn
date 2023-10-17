@@ -1,0 +1,98 @@
+[gd_scene load_steps=12 format=3 uid="uid://cb1x8b6hsg04a"]
+
+[ext_resource type="Script" path="res://scenes/Enemy.gd" id="1_ujllq"]
+[ext_resource type="Texture2D" uid="uid://5kjp472vdaj8" path="res://res/idk/colored-transparent.png" id="2_grfnc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66oor"]
+atlas = ExtResource("2_grfnc")
+region = Rect2(306, 119, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwu5s"]
+atlas = ExtResource("2_grfnc")
+region = Rect2(323, 119, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ub0wt"]
+atlas = ExtResource("2_grfnc")
+region = Rect2(340, 119, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frwlg"]
+atlas = ExtResource("2_grfnc")
+region = Rect2(357, 119, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wixpg"]
+atlas = ExtResource("2_grfnc")
+region = Rect2(374, 119, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xyja8"]
+atlas = ExtResource("2_grfnc")
+region = Rect2(391, 119, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fpy05"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_66oor")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qwu5s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ub0wt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_frwlg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wixpg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xyja8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k5lxf"]
+radius = 39.0
+height = 80.0
+
+[sub_resource type="Gradient" id="Gradient_06jxh"]
+colors = PackedColorArray(0.777822, 0.124764, 5.77569e-07, 1, 0.701961, 0, 0, 0)
+
+[node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
+z_index = 4
+script = ExtResource("1_ujllq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 0, 0.0156863, 1)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_fpy05")
+autoplay = "default"
+frame_progress = 0.853147
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7)
+shape = SubResource("CapsuleShape2D_k5lxf")
+
+[node name="KilledParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 50
+lifetime = 10.0
+one_shot = true
+speed_scale = 5.0
+explosiveness = 1.0
+randomness = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(10, 100)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+angular_velocity_max = 360.0
+linear_accel_min = -10.0
+damping_min = 100.0
+damping_max = 200.0
+scale_amount_min = 5.0
+scale_amount_max = 15.0
+color_ramp = SubResource("Gradient_06jxh")
