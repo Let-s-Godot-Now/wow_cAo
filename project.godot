@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="wow_cAo"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://Scenes/Scenes/GamePlay/main.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GlobalValue="*res://Scenes/Functions/Global/GlobalValue.gd"
 
 [display]
 
