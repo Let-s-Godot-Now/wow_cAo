@@ -1,7 +1,7 @@
 extends Area2D
 
-const SPEED:float = 2000.0
-var area_direction:Vector2 = Vector2(0, 0)
+const SPEED: float = 2000.0
+var area_direction: Vector2 = Vector2(0, 0)
 
 
 func _ready():
@@ -13,12 +13,20 @@ func _process(delta):
 	self.translate(area_direction * SPEED * delta)
 
 
-func _on_body_entered(body):
+func _on_area_entered(area):
+	var body = area.get_parent()
 	if body.is_in_group("Enemy"):
 		body.area_direction = area_direction
 		body.hit()
+		free_bullet()
+
+func _on_body_entered(body):
 	if not body.is_in_group("Player"):
-		if self.has_node("BulletParticles"):
-			self.get_node("BulletParticles/Timer").start()
-			self.get_node("BulletParticles").reparent(get_parent().get_parent())
-		queue_free()
+		free_bullet()
+
+
+func free_bullet():
+	if self.has_node("BulletParticles"):
+		self.get_node("BulletParticles/Timer").start()
+		self.get_node("BulletParticles").reparent(get_parent().get_parent())
+	queue_free()

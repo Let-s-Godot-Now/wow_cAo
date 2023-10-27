@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://cb1x8b6hsg04a"]
+[gd_scene load_steps=14 format=3 uid="uid://cb1x8b6hsg04a"]
 
 [ext_resource type="Script" path="res://Scenes/Character/Enemy/Enemy.gd" id="1_orlsy"]
 [ext_resource type="Texture2D" uid="uid://5kjp472vdaj8" path="res://Resource/idk/colored-transparent.png" id="2_2fp7x"]
+[ext_resource type="AudioStream" uid="uid://bmknwrhcrowkl" path="res://Resource/audio/hit.ogg" id="3_5sjrh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_66oor"]
 atlas = ExtResource("2_2fp7x")
@@ -54,8 +55,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k5lxf"]
-radius = 39.0
-height = 80.0
+radius = 43.0
+height = 86.0
 
 [sub_resource type="Curve" id="Curve_f1qdw"]
 max_value = 100.0
@@ -79,6 +80,7 @@ frame_progress = 0.853147
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7)
 shape = SubResource("CapsuleShape2D_k5lxf")
+disabled = true
 
 [node name="KilledParticles" type="CPUParticles2D" parent="."]
 z_index = 2
@@ -103,3 +105,12 @@ damping_curve = SubResource("Curve_f1qdw")
 scale_amount_min = 5.0
 scale_amount_max = 15.0
 color_ramp = SubResource("Gradient_06jxh")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_5sjrh")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 7)
+shape = SubResource("CapsuleShape2D_k5lxf")

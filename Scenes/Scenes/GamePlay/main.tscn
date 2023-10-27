@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dogl3e8ipse17"]
+[gd_scene load_steps=12 format=3 uid="uid://dogl3e8ipse17"]
 
 [ext_resource type="Script" path="res://Scenes/Scenes/GamePlay/main.gd" id="1_e5tyx"]
 [ext_resource type="Texture2D" uid="uid://ds8y4dmwktd3i" path="res://Resource/idk/bg.png" id="2_y6xhc"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://e5jdm3ndhibr" path="res://Scenes/Character/Player/player_camera.tscn" id="5_n0r8k"]
 [ext_resource type="PackedScene" uid="uid://brpveq6q2cctx" path="res://Scenes/UI/aim_cursor.tscn" id="6_dec41"]
 [ext_resource type="PackedScene" uid="uid://7tneqsawn5k1" path="res://Scenes/Items/spawner.tscn" id="7_nhi4y"]
+[ext_resource type="AudioStream" uid="uid://dnm1m2fasnj8q" path="res://Resource/audio/SSE3Kit3_sout_Mashup.ogg" id="8_44mb2"]
+[ext_resource type="Script" path="res://Scenes/Scenes/GamePlay/GameController.gd" id="9_2jcg4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b2mlr"]
 texture = ExtResource("2_y6xhc")
@@ -237,5 +239,31 @@ position = Vector2(2188, 1719)
 
 [node name="Spawner6" parent="Spawners" instance=ExtResource("7_nhi4y")]
 position = Vector2(184, 227)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_44mb2")
+volume_db = -6.0
+
+[node name="ScoreLabel" type="Label" parent="."]
+z_index = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 1052.0
+offset_top = 641.0
+offset_right = 1337.0
+offset_bottom = 1326.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.517647)
+theme_override_font_sizes/font_size = 500
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameController" type="Node" parent="."]
+script = ExtResource("9_2jcg4")
 
 [connection signal="pressed" from="Button" to="." method="prepare_tile"]

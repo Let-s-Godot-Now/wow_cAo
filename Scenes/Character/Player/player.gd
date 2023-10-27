@@ -51,3 +51,8 @@ func _physics_process(delta):
 	CameraAnchor.look_at(get_global_mouse_position())
 
 	move_and_slide()
+
+
+func _on_area_2d_area_entered(area:Area2D):
+	if area.get_parent().is_in_group("Enemy"):
+		print('hit')
