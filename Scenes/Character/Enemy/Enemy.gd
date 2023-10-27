@@ -28,4 +28,8 @@ func hit():
 	killed_particles.set_emitting(true)
 	killed_particles.reparent(get_parent().get_parent())
 
+	$AudioStreamPlayer2D.play()
+	$AudioStreamPlayer2D.reparent(get_parent().get_parent())
+
+	GlobalValue.scene_root_node.get_node("GameController").update_score.emit(1)
 	self.queue_free()

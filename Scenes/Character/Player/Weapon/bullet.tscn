@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bwgfr4mu8recq"]
+[gd_scene load_steps=9 format=3 uid="uid://bwgfr4mu8recq"]
 
 [ext_resource type="Script" path="res://Scenes/Character/Player/Weapon/Bullet.gd" id="1_assun"]
 [ext_resource type="Script" path="res://Scenes/Character/Player/Weapon/BulletParticles.gd" id="2_uqpgb"]
+[ext_resource type="AudioStream" uid="uid://bsltaaci44xyv" path="res://Resource/audio/gun_oneshot.ogg" id="3_vbcdk"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_xyeno"]
 
@@ -42,5 +43,11 @@ script = ExtResource("2_uqpgb")
 [node name="Timer" type="Timer" parent="BulletParticles"]
 one_shot = true
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_vbcdk")
+volume_db = -3.0
+autoplay = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="BulletParticles/Timer" to="BulletParticles" method="_on_timer_timeout"]
