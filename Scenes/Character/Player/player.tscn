@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bh8k1q5r0hs5k"]
+[gd_scene load_steps=13 format=3 uid="uid://bh8k1q5r0hs5k"]
 
 [ext_resource type="Script" path="res://Scenes/Character/Player/Player.gd" id="1_i4hvk"]
 [ext_resource type="Texture2D" uid="uid://dq1e2gkv4wtu7" path="res://Resource/idk/creature-sheet.png" id="2_hh0sr"]
@@ -45,10 +45,48 @@ height = 22.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_3vdp6"]
 radius = 11.5169
 
+[sub_resource type="Animation" id="Animation_7wvjj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_eacwr"]
+resource_name = "damage"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.658824, 0.666667, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vvlva"]
+_data = {
+"RESET": SubResource("Animation_7wvjj"),
+"damage": SubResource("Animation_eacwr")
+}
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 5
 scale = Vector2(5, 5)
 script = ExtResource("1_i4hvk")
+fire_rate = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_74ysb")
@@ -57,13 +95,21 @@ frame = 1
 frame_progress = 0.356326
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_fl00e")
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 3)
 shape = SubResource("CircleShape2D_3vdp6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimatedSprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_vvlva")
+}
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

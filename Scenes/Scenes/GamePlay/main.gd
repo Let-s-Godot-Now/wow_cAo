@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var tilemap: TileMap = $TileMap
-@onready var camera: Camera2D = $Player/CameraAnchor/PlayerCamera
+@onready var camera: Camera2D = $Player/PlayerCamera/CameraAnchor/Camera
 
 
 func _ready():

@@ -3,6 +3,9 @@ extends CharacterBody2D
 @export var Bullet: PackedScene
 @onready var Camera = $"PlayerCamera/CameraAnchor/Camera"
 @onready var CameraAnchor = $"PlayerCamera/CameraAnchor"
+@onready var HealthBar:ProgressBar = $"Health/TopHealthBar"
+@onready var Health:Node = $"Health"
+var health: int = 100
 
 const DEFAULT_SPEED: float = 700.0
 const FIRE_SPEED: float = 500.0
@@ -12,6 +15,7 @@ var shoot_timer: float = 0
 
 @export var fire_rate: float = 0.1
 var actual_rate: float = 0.1
+
 
 
 func _ready():
@@ -53,6 +57,10 @@ func _physics_process(delta):
 	move_and_slide()
 
 
-func _on_area_2d_area_entered(area:Area2D):
+func _on_area_2d_area_entered(area: Area2D):
 	if area.get_parent().is_in_group("Enemy"):
-		print('hit')
+		health -= 5
+		HealthBar.value=health
+		$AnimationPlayer.play("damage")
+		if health <= 0:
+			queue_free()
