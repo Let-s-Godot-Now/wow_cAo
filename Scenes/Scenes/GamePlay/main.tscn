@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dogl3e8ipse17"]
+[gd_scene load_steps=13 format=3 uid="uid://dogl3e8ipse17"]
 
 [ext_resource type="Script" path="res://Scenes/Scenes/GamePlay/main.gd" id="1_e5tyx"]
 [ext_resource type="Texture2D" uid="uid://ds8y4dmwktd3i" path="res://Resource/idk/bg.png" id="2_y6xhc"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bwgfr4mu8recq" path="res://Scenes/Character/Player/Weapon/bullet.tscn" id="4_lpmy7"]
 [ext_resource type="PackedScene" uid="uid://e5jdm3ndhibr" path="res://Scenes/Character/Player/player_camera.tscn" id="5_n0r8k"]
 [ext_resource type="PackedScene" uid="uid://brpveq6q2cctx" path="res://Scenes/UI/aim_cursor.tscn" id="6_dec41"]
+[ext_resource type="PackedScene" uid="uid://cwlsx7x3flldc" path="res://Scenes/Character/Health.tscn" id="6_x8g2c"]
 [ext_resource type="PackedScene" uid="uid://7tneqsawn5k1" path="res://Scenes/Items/spawner.tscn" id="7_nhi4y"]
 [ext_resource type="AudioStream" uid="uid://dnm1m2fasnj8q" path="res://Resource/audio/SSE3Kit3_sout_Mashup.ogg" id="8_44mb2"]
 [ext_resource type="Script" path="res://Scenes/Scenes/GamePlay/GameController.gd" id="9_2jcg4"]
@@ -219,26 +220,32 @@ Bullet = ExtResource("4_lpmy7")
 
 [node name="PlayerCamera" parent="Player" instance=ExtResource("5_n0r8k")]
 
+[node name="Health" parent="Player" instance=ExtResource("6_x8g2c")]
+position = Vector2(-15.6, -16.6)
+scale = Vector2(0.2, 0.2)
+show_top_health_bar = false
+
 [node name="AimCursor" parent="." instance=ExtResource("6_dec41")]
 
 [node name="Spawners" type="Node2D" parent="."]
 
 [node name="Spawner" parent="Spawners" instance=ExtResource("7_nhi4y")]
+position = Vector2(1680, 154)
 
 [node name="Spawner2" parent="Spawners" instance=ExtResource("7_nhi4y")]
-position = Vector2(593, 872)
+position = Vector2(686, 965)
 
 [node name="Spawner3" parent="Spawners" instance=ExtResource("7_nhi4y")]
-position = Vector2(1750, 1142)
+position = Vector2(1833, 1422)
 
 [node name="Spawner4" parent="Spawners" instance=ExtResource("7_nhi4y")]
-position = Vector2(431, 1630)
+position = Vector2(524, 1723)
 
 [node name="Spawner5" parent="Spawners" instance=ExtResource("7_nhi4y")]
-position = Vector2(2188, 1719)
+position = Vector2(1964, 878)
 
 [node name="Spawner6" parent="Spawners" instance=ExtResource("7_nhi4y")]
-position = Vector2(184, 227)
+position = Vector2(277, 320)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_44mb2")
