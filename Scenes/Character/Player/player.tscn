@@ -86,7 +86,6 @@ _data = {
 z_index = 5
 scale = Vector2(5, 5)
 script = ExtResource("1_i4hvk")
-fire_rate = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_74ysb")

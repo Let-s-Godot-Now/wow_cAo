@@ -1,4 +1,5 @@
 extends Node
+class_name GameController
 
 signal update_score(score_gain: int)
 
