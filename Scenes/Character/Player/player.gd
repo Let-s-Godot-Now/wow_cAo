@@ -4,7 +4,7 @@ extends CharacterBody2D
 @onready var Camera = $"PlayerCamera/CameraAnchor/Camera"
 @onready var CameraAnchor = $"PlayerCamera/CameraAnchor"
 @onready var HealthComp: Node = $"HealthComp"
-@onready var HealthBar: ProgressBar
+@onready var HealthBar := get_tree().current_scene.get_node("GameHUD").get_node("HealthBar")
 
 const DEFAULT_SPEED: float = 700.0
 const FIRE_SPEED: float = 500.0
@@ -17,7 +17,6 @@ var actual_rate: float = 0.1
 
 
 func _ready():
-	HealthBar = get_tree().current_scene.get_node("CanvasLayer").get_node("HealthBar")
 	Camera.set("position", Vector2(40, 0))
 	speed = DEFAULT_SPEED
 
@@ -56,14 +55,13 @@ func _physics_process(delta):
 	move_and_slide()
 
 
-func _on_area_2d_area_entered(area: Area2D):
-	if area.get_parent().is_in_group("Enemy"):
-		$AnimationPlayer.play("damage")
-		HealthComp.value -= 5
-		HealthBar.value = HealthComp.value
-
-
 func damage_callback(attack: Attack):
 	if attack.attack_damage > 0:
 		$AnimationPlayer.play("damage")
-		HealthBar.value = HealthComp.value
+	HealthBar.value = HealthComp.value
+
+
+func die_callback(_attack: Attack):
+	HealthBar.value = 0
+	var gg_canvas: CanvasLayer = get_tree().current_scene.get_node("GameOverCanvas")
+	gg_canvas.visible = true

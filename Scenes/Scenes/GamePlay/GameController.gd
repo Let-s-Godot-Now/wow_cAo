@@ -13,3 +13,6 @@ func _update_score(score_gain):
 	var _score = GlobalValue.score + score_gain
 	score_label.text = str(_score)
 	GlobalValue.score = _score
+
+func retry():
+	get_tree().reload_current_scene()

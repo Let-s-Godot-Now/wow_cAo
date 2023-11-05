@@ -23,5 +23,5 @@ func _on_area_entered(area):
 	if area is HitboxComp:
 		var body = area.get_parent()
 		for group in aim_groups:
-			if body.is_in_group(group):
-				damage(self_attack)
+			if body.is_in_group(group) and body.has_node("HitboxComp"):
+				damage(body.get_node("HitboxComp").self_attack)
