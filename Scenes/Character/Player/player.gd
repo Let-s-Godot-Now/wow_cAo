@@ -3,8 +3,8 @@ extends CharacterBody2D
 @export var Bullet: PackedScene
 @onready var Camera = $"PlayerCamera/CameraAnchor/Camera"
 @onready var CameraAnchor = $"PlayerCamera/CameraAnchor"
-@onready var Health: Node = $"Health"
-@onready var HealthBar:ProgressBar
+@onready var HealthComp: Node = $"HealthComp"
+@onready var HealthBar: ProgressBar
 
 const DEFAULT_SPEED: float = 700.0
 const FIRE_SPEED: float = 500.0
@@ -17,7 +17,7 @@ var actual_rate: float = 0.1
 
 
 func _ready():
-	HealthBar=get_parent().get_node("CanvasLayer").get_node("HealthBar")
+	HealthBar = get_tree().current_scene.get_node("CanvasLayer").get_node("HealthBar")
 	Camera.set("position", Vector2(40, 0))
 	speed = DEFAULT_SPEED
 
@@ -58,8 +58,12 @@ func _physics_process(delta):
 
 func _on_area_2d_area_entered(area: Area2D):
 	if area.get_parent().is_in_group("Enemy"):
-		Health.value -= 5
-		HealthBar.value = Health.value
 		$AnimationPlayer.play("damage")
-		if Health.value <= 0:
-			queue_free()
+		HealthComp.value -= 5
+		HealthBar.value = HealthComp.value
+
+
+func damage_callback(attack: Attack):
+	if attack.attack_damage > 0:
+		$AnimationPlayer.play("damage")
+		HealthBar.value = HealthComp.value

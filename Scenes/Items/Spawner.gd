@@ -18,9 +18,9 @@ func _ready():
 func spawn() -> void:
 	randomize()
 	get_node("AnimationPlayer").play("spawn")
-	var temp = Enemy.instantiate()
-	temp.global_position = self.global_position + Vector2(randf_range(-2, 2), randf_range(-2, 2))
-	GlobalValue.scene_root_node.add_child(temp)
+	var _temp = Enemy.instantiate()
+	_temp.global_position = self.global_position + Vector2(randf_range(-2, 2), randf_range(-2, 2))
+	GlobalValue.scene_root_node.add_child(_temp)
 	$Timer.set_wait_time(randf_range(1, 5))
 	var used = tilemap.get_used_rect()
 	var tile_size = tilemap.tile_set.tile_size * 6
