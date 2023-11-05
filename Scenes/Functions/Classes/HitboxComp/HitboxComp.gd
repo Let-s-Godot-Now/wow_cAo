@@ -7,9 +7,10 @@ class_name HitboxComp
 @export_group("Self Attack")
 @export var self_damage_amount: float
 
-var self_attack:Attack
+var self_attack: Attack
 
-func _ready()->void:
+
+func _ready() -> void:
 	self_attack = Attack.new()
 	self_attack.attack_damage = self_damage_amount
 

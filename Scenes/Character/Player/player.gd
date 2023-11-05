@@ -4,7 +4,10 @@ extends CharacterBody2D
 @onready var Camera = $"PlayerCamera/CameraAnchor/Camera"
 @onready var CameraAnchor = $"PlayerCamera/CameraAnchor"
 @onready var HealthComp: Node = $"HealthComp"
-@onready var HealthBar := get_tree().current_scene.get_node("GameHUD").get_node("HealthBar")
+@onready var GameHud: CanvasLayer = get_tree().current_scene.get_node("GameHUD")
+@onready var HealthBar := GameHud.get_node("HealthBar")
+@onready var DamageScreen := GameHud.get_node("DamageScreen")
+@onready var AmmorLabel: Label = GameHud.get_node("AmmorLabel")
 
 const DEFAULT_SPEED: float = 700.0
 const FIRE_SPEED: float = 500.0
@@ -15,25 +18,35 @@ var shoot_timer: float = 0
 @export var fire_rate: float = 0.1
 var actual_rate: float = 0.1
 
+var ammor = 90
+
 
 func _ready():
 	Camera.set("position", Vector2(40, 0))
 	speed = DEFAULT_SPEED
+	AmmorLabel.text = str(ammor)
 
 
 func _physics_process(delta):
 	shoot_timer += delta
 
 	if Input.get_action_raw_strength("Shoot") && shoot_timer >= actual_rate:
-		var _bullet = Bullet.instantiate()
-		add_sibling(_bullet)
-		_bullet.global_position = global_position
-		_bullet.set(
-			"area_direction", (get_global_mouse_position() - self.global_position).normalized()
-		)
-		Camera.shake(0.5, 20, 10)
-		shoot_timer = 0
-		speed = FIRE_SPEED
+		if ammor > 0:
+			var _bullet = Bullet.instantiate()
+			add_sibling(_bullet)
+			_bullet.global_position = global_position
+			_bullet.set(
+				"area_direction", (get_global_mouse_position() - self.global_position).normalized()
+			)
+			Camera.shake(0.5, 20, 10)
+			shoot_timer = 0
+			speed = FIRE_SPEED
+			ammor -= 1
+			AmmorLabel.text = str(ammor)
+		else:
+			$AudioStreamPlayer.play()
+			shoot_timer = 0
+			AmmorLabel.text = "0"
 	else:
 		Camera.set("offset", Vector2(0, 0))
 		speed = DEFAULT_SPEED
@@ -58,10 +71,18 @@ func _physics_process(delta):
 func damage_callback(attack: Attack):
 	if attack.attack_damage > 0:
 		$AnimationPlayer.play("damage")
-	HealthBar.value = HealthComp.value
+		DamageScreen.get_node("AnimationPlayer").play("damage_screen")
+		update_healthbar()
 
 
 func die_callback(_attack: Attack):
 	HealthBar.value = 0
 	var gg_canvas: CanvasLayer = get_tree().current_scene.get_node("GameOverCanvas")
 	gg_canvas.visible = true
+
+
+func update_healthbar():
+	HealthBar.value = HealthComp.value
+
+func update_ammorlabel():
+	AmmorLabel.text = str(ammor)
