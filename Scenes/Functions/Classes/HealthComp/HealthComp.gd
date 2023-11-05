@@ -21,9 +21,11 @@ func _ready() -> void:
 func damage(attack: Attack):
 	print(1)
 	value -= attack.attack_damage
-	if get_parent().has_method("damage_callback"):
-		get_parent().damage_callback(attack)
+
 	if value <= 0:
 		if get_parent().has_method("die_callback"):
 			get_parent().die_callback(attack)
 		get_parent().queue_free()
+	else:
+		if get_parent().has_method("damage_callback"):
+			get_parent().damage_callback(attack)
