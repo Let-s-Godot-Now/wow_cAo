@@ -5,6 +5,8 @@ extends Marker2D
 @export var min_spawn_interval: float = 1
 @export var max_spawn_interval: float = 5
 
+@export var spawn_animation:bool = true
+
 var tilemap: TileMap
 
 
@@ -19,7 +21,8 @@ func _ready():
 func spawn() -> void:
 	randomize()
 
-	get_node("AnimationPlayer").play("spawn")
+	if spawn_animation:
+		get_node("AnimationPlayer").play("spawn")
 
 	var _temp = Enemy.instantiate()
 	_temp.global_position = self.global_position + Vector2(randf_range(-2, 2), randf_range(-2, 2))
