@@ -5,7 +5,6 @@ extends Node2D
 
 
 func _ready():
-	GlobalValue.scene_root_node = self
 	prepare_tile()
 
 

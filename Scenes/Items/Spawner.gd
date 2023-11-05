@@ -2,7 +2,8 @@ extends Marker2D
 
 @export var Enemy: PackedScene
 
-@export var spawn_interval: Vector2 = Vector2(1, 5)
+@export var min_spawn_interval: float = 1
+@export var max_spawn_interval: float = 5
 
 var tilemap: TileMap
 
@@ -17,15 +18,22 @@ func _ready():
 
 func spawn() -> void:
 	randomize()
+
 	get_node("AnimationPlayer").play("spawn")
+
 	var _temp = Enemy.instantiate()
 	_temp.global_position = self.global_position + Vector2(randf_range(-2, 2), randf_range(-2, 2))
-	GlobalValue.scene_root_node.add_child(_temp)
-	$Timer.set_wait_time(randf_range(1, 5))
+	get_tree().current_scene.add_child(_temp)
+
+	$Timer.set_wait_time(randf_range(min_spawn_interval, max_spawn_interval))
+
 	var used = tilemap.get_used_rect()
 	var tile_size = tilemap.tile_set.tile_size * 6
 	position = Vector2(
-		randf_range(used.position.x * tile_size.x, used.end.x * tile_size.x),
-		randf_range(used.position.y * tile_size.y, used.end.y * tile_size.y)
+		randf_range(
+			used.position.x * tile_size.x + tile_size.x, used.end.x * tile_size.x - tile_size.x
+		),
+		randf_range(
+			used.position.y * tile_size.y + tile_size.y, used.end.y * tile_size.y - tile_size.y
+		)
 	)
-	# position=Vector2(randf_range(0, tilemap.get_used_rect().size.x), randf_range(0, tilemap.get_used_rect().size.y))

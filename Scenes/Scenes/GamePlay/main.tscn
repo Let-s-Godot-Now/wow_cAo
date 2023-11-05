@@ -284,6 +284,7 @@ value = 100.0
 show_percentage = false
 
 [node name="GameOverCanvas" type="CanvasLayer" parent="."]
+layer = 2
 visible = false
 
 [node name="ColorRect" type="ColorRect" parent="GameOverCanvas"]
@@ -300,13 +301,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -246.5
-offset_top = -103.5
-offset_right = 246.5
-offset_bottom = 23.5
+offset_left = -163.5
+offset_top = -73.0
+offset_right = 163.5
+offset_bottom = 13.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 90
+theme_override_font_sizes/font_size = 60
 text = "GAMEOVER"
 
 [node name="Button" type="Button" parent="GameOverCanvas"]
@@ -315,16 +316,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -246.0
-offset_top = 60.0
-offset_right = 247.0
-offset_bottom = 155.0
+offset_left = -163.5
+offset_top = 27.0
+offset_right = 163.5
+offset_bottom = 107.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 30
 text = "Retry"
 
-[node name="AimCursor" parent="." instance=ExtResource("6_dec41")]
+[node name="TopLayer" type="CanvasLayer" parent="."]
+layer = 3
+scale = Vector2(0.6, 0.6)
+transform = Transform2D(0.6, 0, 0, 0.6, 0, 0)
+
+[node name="AimCursor" parent="TopLayer" instance=ExtResource("6_dec41")]
 
 [connection signal="pressed" from="Button" to="." method="prepare_tile"]
 [connection signal="pressed" from="GameOverCanvas/Button" to="GameController" method="retry"]

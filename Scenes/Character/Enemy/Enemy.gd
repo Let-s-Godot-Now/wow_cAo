@@ -7,6 +7,7 @@ extends CharacterBody2D
 
 var player: CharacterBody2D
 
+
 func _ready():
 	player = get_parent().get_node("Player")
 

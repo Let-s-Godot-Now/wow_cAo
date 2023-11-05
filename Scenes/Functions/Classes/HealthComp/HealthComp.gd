@@ -3,8 +3,6 @@ class_name HealthComp
 
 @export var show_top_health_bar: bool = true
 
-# @onready var top_health_bar: ProgressBar = get_node("TopHealthBar")
-
 @export var MAX_HEALTH: float = 100.0
 
 var value: float:
@@ -14,7 +12,6 @@ var value: float:
 
 
 func _ready() -> void:
-	# top_health_bar.visible = show_top_health_bar
 	value = MAX_HEALTH
 
 

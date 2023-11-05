@@ -22,10 +22,6 @@ func _process(delta):
 # 仅处理Enemy Area2D
 func _on_area_entered(area):
 	var body = area.get_parent()
-	# if body.is_in_group("Enemy"):
-	# 	body.area_direction = area_direction
-	# 	body.hit()
-	# 	free_bullet()
 
 	if area is HitboxComp and body.is_in_group("Enemy"):
 		var hitbox: HitboxComp = area
@@ -37,7 +33,7 @@ func _on_area_entered(area):
 		free_bullet()
 
 
-# 仅处理Player碰撞体
+# 仅处理墙体碰撞体
 func _on_body_entered(body):
 	if not body.is_in_group("Player"):
 		free_bullet()
