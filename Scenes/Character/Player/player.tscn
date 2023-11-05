@@ -1,7 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://bh8k1q5r0hs5k"]
+[gd_scene load_steps=14 format=3 uid="uid://bh8k1q5r0hs5k"]
 
 [ext_resource type="Script" path="res://Scenes/Character/Player/Player.gd" id="1_i4hvk"]
 [ext_resource type="Texture2D" uid="uid://dq1e2gkv4wtu7" path="res://Resource/idk/creature-sheet.png" id="2_hh0sr"]
+[ext_resource type="Script" path="res://Scenes/Functions/Classes/HealthComp/HealthComp.gd" id="3_g6yn6"]
+[ext_resource type="PackedScene" uid="uid://c5beph2d0tfim" path="res://Scenes/Functions/Classes/HitboxComp/hitbox_comp.tscn" id="4_y4aao"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3dg7b"]
 atlas = ExtResource("2_hh0sr")
@@ -41,9 +43,6 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fl00e"]
 height = 22.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_3vdp6"]
-radius = 11.5169
 
 [sub_resource type="Animation" id="Animation_7wvjj"]
 length = 0.001
@@ -94,16 +93,8 @@ frame = 1
 frame_progress = 0.356326
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_fl00e")
-
-[node name="Area2D" type="Area2D" parent="."]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 3)
-shape = SubResource("CircleShape2D_3vdp6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../AnimatedSprite2D")
@@ -111,4 +102,13 @@ libraries = {
 "": SubResource("AnimationLibrary_vvlva")
 }
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[node name="HealthComp" type="Node" parent="."]
+script = ExtResource("3_g6yn6")
+
+[node name="HitboxComp" parent="." node_paths=PackedStringArray("health_comp") instance=ExtResource("4_y4aao")]
+health_comp = NodePath("../HealthComp")
+aim_groups = ["Enemy"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComp"]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_fl00e")
