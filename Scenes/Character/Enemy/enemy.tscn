@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cb1x8b6hsg04a"]
+[gd_scene load_steps=12 format=3 uid="uid://cb1x8b6hsg04a"]
 
 [ext_resource type="Script" path="res://Scenes/Character/Enemy/Enemy.gd" id="1_orlsy"]
 [ext_resource type="Texture2D" uid="uid://5kjp472vdaj8" path="res://Resource/idk/colored-transparent.png" id="2_2fp7x"]
@@ -14,22 +14,6 @@ region = Rect2(306, 119, 16, 16)
 atlas = ExtResource("2_2fp7x")
 region = Rect2(323, 119, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ub0wt"]
-atlas = ExtResource("2_2fp7x")
-region = Rect2(340, 119, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_frwlg"]
-atlas = ExtResource("2_2fp7x")
-region = Rect2(357, 119, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wixpg"]
-atlas = ExtResource("2_2fp7x")
-region = Rect2(374, 119, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xyja8"]
-atlas = ExtResource("2_2fp7x")
-region = Rect2(391, 119, 16, 16)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_fpy05"]
 animations = [{
 "frames": [{
@@ -38,18 +22,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qwu5s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ub0wt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_frwlg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wixpg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xyja8")
 }],
 "loop": true,
 "name": &"default",
